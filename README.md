@@ -1,5 +1,6 @@
+# Hello World! VPN service
 ## Overview
-Repository creates for fast running development process with configuration, which are the same from project to project.
+Subscription service for my VPN
 
 ## Building
 ...
