@@ -1,10 +1,10 @@
-package com.github.smartoven.customerservice;
+package com.github.smartoven.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CustomerServiceApplicationTests {
+class UserApplicationTests {
 
     @Test
     void contextLoads() {
