@@ -1,4 +1,4 @@
-package com.github.smartoven.user.user.dto;
+package com.github.smartoven.user.model.user.dto;
 
 import lombok.*;
 
