@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.github.SmartOven'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+//sourceCompatibility = '17'
 
 configurations {
     compileOnly {
@@ -23,6 +23,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'com.google.code.gson:gson:2.9.0'
+
+    // TG bot
+//    implementation group: 'org.telegram', name: "telegrambots-abilities", version: '5.3.0'
+//    implementation group: 'org.telegram', name: "telegrambots", version: '5.3.0'
+    implementation 'org.telegram:telegrambotsextensions:6.1.0'
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
