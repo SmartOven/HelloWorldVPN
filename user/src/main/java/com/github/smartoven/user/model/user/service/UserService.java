@@ -1,9 +1,9 @@
-package com.github.smartoven.user.user.service;
+package com.github.smartoven.user.model.user.service;
 
-import com.github.smartoven.user.user.User;
-import com.github.smartoven.user.user.dto.UserDto;
-import com.github.smartoven.user.user.dto.UserMapper;
-import com.github.smartoven.user.user.repository.UserRepository;
+import com.github.smartoven.user.model.user.User;
+import com.github.smartoven.user.model.user.dto.UserMapper;
+import com.github.smartoven.user.model.user.repository.UserRepository;
+import com.github.smartoven.user.model.user.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

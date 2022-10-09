@@ -1,7 +1,7 @@
 package com.github.smartoven.user.controller;
 
-import com.github.smartoven.user.user.dto.UserDto;
-import com.github.smartoven.user.user.service.UserService;
+import com.github.smartoven.user.model.user.dto.UserDto;
+import com.github.smartoven.user.model.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,6 +1,6 @@
-package com.github.smartoven.user.user.dto;
+package com.github.smartoven.user.model.user.dto;
 
-import com.github.smartoven.user.user.User;
+import com.github.smartoven.user.model.user.User;
 import org.springframework.stereotype.Service;
 
 @Service

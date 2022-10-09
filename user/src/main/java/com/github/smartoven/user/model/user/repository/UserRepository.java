@@ -1,6 +1,6 @@
-package com.github.smartoven.user.user.repository;
+package com.github.smartoven.user.model.user.repository;
 
-import com.github.smartoven.user.user.User;
+import com.github.smartoven.user.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
