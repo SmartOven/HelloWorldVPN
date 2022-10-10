@@ -10,7 +10,7 @@ import org.telegram.telegrambots.meta.generics.LongPollingBot;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 @Component
-public class BotConfig {
+public class BotConfiguration {
 
     @EventListener(ContextRefreshedEvent.class)
     public void init() throws TelegramApiException {
@@ -20,7 +20,7 @@ public class BotConfig {
 
     private final LongPollingBot bot;
 
-    public BotConfig(@Autowired LongPollingBot bot) {
+    public BotConfiguration(@Autowired LongPollingBot bot) {
         this.bot = bot;
     }
 }
