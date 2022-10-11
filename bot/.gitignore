@@ -38,3 +38,5 @@ out/
 
 postgres.yml
 server.bat
+logback.xml
+log/*

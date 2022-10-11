@@ -6,7 +6,6 @@ plugins {
 
 group = 'com.github.SmartOven'
 version = '0.0.1-SNAPSHOT'
-//sourceCompatibility = '17'
 
 configurations {
     compileOnly {
@@ -29,7 +28,7 @@ dependencies {
 //    implementation group: 'org.telegram', name: "telegrambots", version: '5.3.0'
     implementation 'org.telegram:telegrambotsextensions:6.1.0'
 
-    compileOnly 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'org.postgresql:postgresql'
 
@@ -41,3 +40,8 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+tasks.named("bootJar") {
+    archiveClassifier = 'boot'
+}
+
