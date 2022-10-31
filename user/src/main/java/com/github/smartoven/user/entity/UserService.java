@@ -1,7 +1,7 @@
 package com.github.smartoven.user.entity;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import com.github.smartoven.user.mapping.UserDto;
 import com.github.smartoven.user.mapping.UserMapper;
@@ -34,19 +34,17 @@ public class UserService {
                 .toList();
     }
 
-    public UserViewModel findUserById(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException(
-                        String.format("User with id %s not found", id))
-                );
-        return userMapper.entityToViewModel(user);
+    public boolean existsByTelegramId(Long telegramId) {
+        return userRepository.existsByTelegramId(telegramId);
     }
 
-    public UserViewModel findUserByUsername(String username) {
-        User user = userRepository.findUserByUsername(username)
-                .orElseThrow(() -> new NoSuchElementException(
-                        String.format("User with username %s not found", username))
-                );
-        return userMapper.entityToViewModel(user);
+    public Optional<UserViewModel> findUserById(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        return userOptional.map(userMapper::entityToViewModel);
+    }
+
+    public Optional<UserViewModel> findUserByTelegramId(Long telegramId) {
+        Optional<User> userOptional = userRepository.findUserByTelegramId(telegramId);
+        return userOptional.map(userMapper::entityToViewModel);
     }
 }

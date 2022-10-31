@@ -5,3 +5,4 @@ out/*
 .gradle/*
 target/*
 *.properties
+*.sh

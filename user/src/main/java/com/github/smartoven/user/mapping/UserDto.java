@@ -1,10 +1,14 @@
 package com.github.smartoven.user.mapping;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
-@RequiredArgsConstructor
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
-    private final String username;
+    private Long telegramId;
 }
