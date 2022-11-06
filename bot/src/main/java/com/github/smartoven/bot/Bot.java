@@ -1,6 +1,8 @@
 package com.github.smartoven.bot;
 
+import com.github.smartoven.bot.commands.CommandResolver;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -30,22 +32,29 @@ public class Bot extends TelegramLongPollingBot {
         return botToken;
     }
 
+    /**
+     * Bot reacting to the updates (answering to the messages)
+     *
+     * @param update Update received
+     */
     @Override
     public void onUpdateReceived(Update update) {
-        if (!update.hasMessage()) {
-            return;
-        }
-        if (!update.getMessage().hasText()) {
+        // Skip all updates, that doesn't have the message and text inside
+        if (!update.hasMessage() || !update.getMessage().hasText()) {
             return;
         }
 
-        String text = update.getMessage().getText();
-        long chatId = update.getMessage().getChatId();
-        String username = update.getMessage().getChat().getUserName();
+        // Collect information for the reply
+        Message message = update.getMessage();
+        String text = message.getText();
+        long chatId = message.getChatId();
+        String username = message.getChat().getUserName();
 
         if (text.contains("/info")) {
-            sendInfo(chatId, update);
+            sendInfo(chatId, message);
             log.info("Info sent to the user - " + username);
+        } else if (text.contains("hello")) {
+            sendMessage(chatId, commandResolver.getHello());
         } else {
             sendMessage(chatId, text); // echo bot
             log.info("Replied to the user - " + username);
@@ -64,8 +73,7 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    private void sendInfo(long chatId, Update update) {
-        Message message = update.getMessage();
+    private void sendInfo(long chatId, Message message) {
         Chat chat = message.getChat();
 
         String infoBuilder = "Information about received message update:\n" +
@@ -76,5 +84,11 @@ public class Bot extends TelegramLongPollingBot {
                 "Last name: " + chat.getLastName() + "\n";
 
         sendMessage(chatId, infoBuilder);
+    }
+
+    private final CommandResolver commandResolver;
+
+    public Bot(@Autowired CommandResolver commandResolver) {
+        this.commandResolver = commandResolver;
     }
 }
