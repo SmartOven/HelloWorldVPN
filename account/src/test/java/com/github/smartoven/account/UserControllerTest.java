@@ -1,10 +1,14 @@
 package com.github.smartoven.account;
 
-import java.util.Collections;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
-import com.github.smartoven.account.entity.UserService;
-import com.github.smartoven.account.mapping.UserDto;
-import com.github.smartoven.account.mapping.UserViewModel;
+import com.github.smartoven.controller.UserController;
+import com.github.smartoven.model.user.User;
+import com.github.smartoven.model.user.services.UserMapper;
+import com.github.smartoven.model.user.services.UserService;
+import com.github.smartoven.model.user.view.UserDto;
+import com.github.smartoven.model.user.view.UserViewModel;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,19 +23,31 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
 
+    // FIXME Пофиксить тесты и написать новые, когда код будет готов
     @Mock
     private UserService userService;
+
+    @Mock
+    private UserMapper userMapper;
 
     @InjectMocks
     private UserController userController;
 
-    private final UserDto testUserDto = new UserDto(1L);
-
     @Test
     void createUser() {
-        when(userService.createUser(isA(UserDto.class))).thenAnswer(invocation -> {
+        UserDto testUserDto = new UserDto(1L, LocalDateTime.now());
+
+        when(userMapper.dtoToEntity(isA(UserDto.class))).thenAnswer(invocation -> {
             UserDto userDto = invocation.getArgument(0);
-            return new UserViewModel(1L, userDto.getTelegramId(), Collections.emptyList());
+            return User.builder()
+                    .telegramId(userDto.getTelegramId())
+                    .subscriptionPaidUntil(userDto.getSubscriptionPaidUntil())
+                    .build();
+        });
+        when(userService.save(isA(User.class))).thenAnswer(invocation -> {
+            User user = invocation.getArgument(0);
+            user.setId(1L);
+            return user;
         });
 
         UserViewModel createdUserViewModel = (UserViewModel) userController.createUser(testUserDto).getBody();
@@ -41,9 +57,11 @@ class UserControllerTest {
 
     @Test
     void findUserByUsername() {
+        UserDto testUserDto = new UserDto(1L, LocalDateTime.now());
+
         when(userService.findUserByTelegramId(isA(Long.class))).thenAnswer(invocation -> {
             Long telegramId = invocation.getArgument(0);
-            return new UserViewModel(1L, telegramId, Collections.emptyList());
+            return Optional.of(new User(1L, telegramId, LocalDateTime.now()));
         });
 
         UserViewModel foundUserViewModel =

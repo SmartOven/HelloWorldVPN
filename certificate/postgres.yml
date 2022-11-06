@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:14
+    container_name: certificate_postgres_container
+    hostname: certificate_postgres
+    environment:
+      POSTGRES_DB: certificate
+      POSTGRES_USER: smartoven
+      POSTGRES_PASSWORD:
+    ports:
+      - "5102:5432"
